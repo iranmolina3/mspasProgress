@@ -1,5 +1,20 @@
 My references to the project MSPAS progress
 
-#template
+# -- > template
 https://themewagon.com/themes/free-bootstrap-5-html-5-business-website-template-mirko/
 
+# -- > 'staticfiles' is not a registered tag library. Must be one of:
+
+django no reconoce a staticfiles como uno de los tags en las ultimas versiones
+por lo que se debe ed remplazar
+
+If you have any of the following tags in your template:
+
+{% load staticfiles %}
+{% load static from staticfiles %}
+{% load admin_static %}
+Then replace it with:
+
+{% load static %}
+
+# -- >
