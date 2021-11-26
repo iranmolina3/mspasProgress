@@ -98,3 +98,5 @@ class tbl_nota_sub_asignatura(models.Model):
     fecha_creacion = models.DateField('fecha creacion', auto_now_add=True, auto_now=False, null=False, blank=False)
     fecha_modificacion = models.DateField('fecha modificacion', auto_now_add=False, auto_now=True, null=False, blank=False)
     fk_asignatura = models.ForeignKey(tbl_sub_asignatura, null=False, blank=False, on_delete=models.CASCADE)
+
+

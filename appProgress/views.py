@@ -5,5 +5,5 @@ from django.shortcuts import render
 def home(request):
     return render(request, 'index.html')
 
-def singin(request):
+def sing_in(request):
     return render(request, 'sing_in.html')
