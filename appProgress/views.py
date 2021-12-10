@@ -22,5 +22,7 @@ class home(TemplateView):
         return render(request, 'sing_in.html')"""
 
 class sing_in(TemplateView):
-    template_name = 'sing_in.html'
+    template_name = 'auth-signin.html'
 
+class register(TemplateView):
+     template_name = 'auth-signup.html'

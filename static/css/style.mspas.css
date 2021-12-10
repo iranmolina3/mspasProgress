@@ -2,3 +2,11 @@ html, body{
     height: 100%;
     margin: 0;
 }
+
+.register{
+    color: #0CE665;
+}
+
+.register:hover{
+    color: #FFFFFF;
+}
