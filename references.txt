@@ -1,4 +1,11 @@
+https://myaccount.google.com/lesssecureapps
+
+
 My references to the project MSPAS progress
+
+#usuario admin - localhost
+usuario: deviran
+password: Holamundo3#
 
 # -- > template
 https://themewagon.com/themes/free-bootstrap-5-html-5-business-website-template-mirko/
@@ -21,3 +28,5 @@ Then replace it with:
 
 # -- COLOR menta
 -- #1abc9c
+
+

@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime
+from django.contrib.auth.models import User
 
 # Create your models here.
 from django.db.transaction import on_commit
@@ -11,19 +11,29 @@ class tbl_persona(models.Model):
     segundo_nombre = models.CharField('segundo nombre', max_length=25, null=True, blank=True)
     primer_apellido = models.CharField('primer apellido', max_length=25, null=False, blank=False)
     segundo_apellido = models.CharField('segundo apellido', max_length=25, null=True, blank=True)
-    cui = models.CharField('cui', max_length=25, null=False, blank=False)
-    fecha_nacimiento = models.DateField('fecha de nacimiento', null=False, blank=False)
-    direccion = models.TextField('adomicilio', null=False, blank=False)
-    telefono = models.CharField('telefono', max_length=8, null=False, blank=False)
+    cui = models.CharField('cui', max_length=25, null=True, blank=True)
+    fecha_nacimiento = models.DateField('fecha de nacimiento', null=True, blank=True)
+    direccion = models.TextField('adomicilio', null=True, blank=True)
+    telefono = models.CharField('telefono', max_length=8, null=True, blank=True)
     estado = models.BooleanField('activo/inactivo', default=True, null=False, blank=False)
-
+    fk_usuario = models.OneToOneField(User, null=False, blank=False, on_delete=models.CASCADE)
+    """class Meta:
+        verbose_name = 'persona'
+        verbose_name_plural = 'personas'
+        ordering = ['pk_persona']
+"""
 
 class tbl_usuario(models.Model):
     pk_usuario = models.AutoField('identificador', primary_key=True, null=False, blank=False)
-    usuario = models.CharField('usuario', max_length=25, null=False, blank=False)
+    usuario = models.CharField('correo MSPAS', max_length=25, null=False, blank=False)
     contrasenia = models.CharField('contraseña', max_length=255, null=False, blank=False)
     estado = models.BooleanField('activo/inactivo', default=True, null=False, blank=False)
     fk_persona = models.OneToOneField(tbl_persona, null=False, blank=False, on_delete=models.CASCADE)
+
+    """class Meta:
+        verbose_name = 'usuario'
+        verbose_name_plural = 'usuarios'
+        ordering = ['estado']"""
 
 class tbl_producto(models.Model):
     pk_producto = models.AutoField('identificador', primary_key=True, null=False, blank=False)

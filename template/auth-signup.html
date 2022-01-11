@@ -42,13 +42,20 @@
                         <form method="POST">
                         {% csrf_token %}
                             <div class="form-group mb-3">
-							<input type="text" class="form-control" id="primer_nombre" placeholder="Escribre tu nombre" required>
+							<!--<input type="text" class="form-control" id="primer_nombre" placeholder="Escribre tu nombre" required>-->
+                                {{ formPersona.primer_nombre }}
                             </div>
                             <div class="form-group mb-3">
-                                <input type="text" class="form-control" id="primer_apellido" placeholder="Escribre tu apellido" required>
+                                <!--<input type="text" class="form-control" id="primer_apellido" placeholder="Escribre tu apellido" required>-->
+                                {{ formPersona.primer_apellido }}
                             </div>
                             <div class="form-group mb-4">
-                                <input type="text" class="form-control" id="correo_mspas" placeholder="Escribre tu correo MSPAS" required>
+                                <!--<input type="text" class="form-control" id="correo_mspas" placeholder="Escribre tu correo MSPAS" required>-->
+                                {{ formUsuario.usuario }}
+                            </div>
+                            <div class="form-group mb-4">
+                                <!--<input type="text" class="form-control" id="correo_mspas" placeholder="Escribre tu contraseña MSPAS" required>-->
+                                {{ formUsuario.contrasenia }}
                             </div>
                             <div class="custom-control custom-checkbox  text-left mb-4 mt-2">
                                 <input type="checkbox" class="custom-control-input" id="customCheck1" required>
@@ -57,7 +64,7 @@
                             <button class="btn btn-primary btn-block mb-4" style="background-color: #064977;">Crear cuenta</button>
                             <hr>
                         </form>
-						<p class="mb-2">Ya tienes una cuenta? <a href="auth-signin.html" class="f-w-400">Iniciar sesion</a></p>
+						<p class="mb-2">Ya tienes una cuenta? <a href="{% url 'appProgress:sing_in' %}" class="f-w-400">Iniciar sesion</a></p>
 					</div>
 				</div>
 			</div>

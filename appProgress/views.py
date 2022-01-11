@@ -1,6 +1,15 @@
-from django.shortcuts import render
-from django.views.generic import View, TemplateView
+from django.core.mail.backends import smtp
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import View, TemplateView, CreateView
+from django.contrib.auth.models import User
+
+from decouple import config
+
+
 # Create your views here.
+
+from .forms import *
 
 """def home(request):
     return render(request, 'index.html')"""
@@ -22,7 +31,33 @@ class home(TemplateView):
         return render(request, 'sing_in.html')"""
 
 class sing_in(TemplateView):
+    # print('VARIABLE DE ENTORNO: ' + config('EMAIL_PASSWORD'))
     template_name = 'auth-signin.html'
 
-class register(TemplateView):
-     template_name = 'auth-signup.html'
+class register(CreateView):
+    def get(self, request):
+        template_name = 'auth-signup.html'
+        return render(request, template_name, {'formUsuario':formUsuario, 'formPersona':formPersona})
+    def post(self, request):
+        usuario = request.POST['usuario']
+        subtring_usuario = usuario[:usuario.find('@')]
+        contrasenia = request.POST['contrasenia']
+        model_user = User.objects.create_user(subtring_usuario, usuario, contrasenia)
+        #model_user.save()
+
+        send_mail(usuario)
+
+        primer_nombre = request.POST['primer_nombre']
+        primer_apellido = request.POST['primer_apellido']
+        model_persona = tbl_persona(primer_nombre=primer_nombre, primer_apellido=primer_apellido, fk_usuario=model_user)
+        #model_persona.save()
+
+        return redirect('appProgress:sing_in')
+    success_url = reverse_lazy('appProgress:sing_in')
+
+class dasboard(TemplateView):
+    template_name = 'dashboard.html'
+
+
+def send_mail(email):
+    pass
