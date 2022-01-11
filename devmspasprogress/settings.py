@@ -146,6 +146,14 @@ EMAIL_HOST_USER = 'iranmolinadev@gmail.com'
 EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
 EMAIL_USE_TLS = True
 
+"""
+export EMAIL_PASSWORD=XXXXXXXXXXXX
+
+sirve para poder guardar datos sencibles
+
+"""
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

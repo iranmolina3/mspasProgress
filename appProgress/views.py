@@ -1,11 +1,14 @@
 from django.core.mail.backends import smtp
+from django.forms import EmailInput
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import View, TemplateView, CreateView
 from django.contrib.auth.models import User
 
 from decouple import config
-
+from django.template.loader import get_template
+from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
 
 # Create your views here.
 
@@ -59,5 +62,18 @@ class dasboard(TemplateView):
     template_name = 'dashboard.html'
 
 
-def send_mail(email):
-    pass
+def send_mail(mail):
+    context = {'mail': mail}
+    template = get_template('email/email_register.html')
+    content = template.render(context)
+
+    email = EmailMultiAlternatives(
+        'Un correo de prueba',
+        'Developer iran_mx2',
+        settings.EMAIL_HOST_USER,
+        [mail],
+        cc=[]
+    )
+
+    email.attach_alternative(content, 'text/html')
+    email.send()
