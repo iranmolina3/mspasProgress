@@ -25,7 +25,7 @@ class tbl_persona(models.Model):
 
 class tbl_usuario(models.Model):
     pk_usuario = models.AutoField('identificador', primary_key=True, null=False, blank=False)
-    usuario = models.CharField('correo MSPAS', max_length=25, null=False, blank=False)
+    usuario = models.CharField('correo MSPAS', max_length=100, null=False, blank=False)
     contrasenia = models.CharField('contraseña', max_length=255, null=False, blank=False)
     estado = models.BooleanField('activo/inactivo', default=True, null=False, blank=False)
     fk_persona = models.OneToOneField(tbl_persona, null=False, blank=False, on_delete=models.CASCADE)

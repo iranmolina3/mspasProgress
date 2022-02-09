@@ -29,4 +29,11 @@ Then replace it with:
 # -- COLOR menta
 -- #1abc9c
 
+-- CREACION-VARIABLE-ENTORNO
 
+"""
+export EMAIL_PASSWORD=XXXXXXXXXXXX
+
+sirve para poder guardar datos sencibles
+
+"""

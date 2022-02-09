@@ -14,6 +14,11 @@ from django.conf import settings
 
 from .forms import *
 
+# Validation exist email
+
+from email_validate import validate, validate_or_fail
+
+
 """def home(request):
     return render(request, 'index.html')"""
 
@@ -35,7 +40,24 @@ class home(TemplateView):
 
 class sing_in(TemplateView):
     # print('VARIABLE DE ENTORNO: ' + config('EMAIL_PASSWORD'))
+    def post(self, request):
+        password_user = request.POST['mypassword']
+        name_user = request.POST['myuser']
+
+        model_user = User.objects.get(username=name_user)
+
+        print('USER: ', model_user.get_username(), 'PASS:', model_user.check_password(password_user))
+        template_name = 'dashboard.html'
+        return render(request, template_name)
     template_name = 'auth-signin.html'
+
+"""
+* se validara la creacion del usuario
+* si y solo si el usuario cumple con
+* los siguientes criterios:
+    - @mspas.gob.gt
+    - existencia del correo
+"""
 
 class register(CreateView):
     def get(self, request):
@@ -45,17 +67,21 @@ class register(CreateView):
         usuario = request.POST['usuario']
         subtring_usuario = usuario[:usuario.find('@')]
         contrasenia = request.POST['contrasenia']
-        model_user = User.objects.create_user(subtring_usuario, usuario, contrasenia)
-        #model_user.save()
-
-        send_mail(usuario)
-
+        # -- DATOS PERSONALES
         primer_nombre = request.POST['primer_nombre']
         primer_apellido = request.POST['primer_apellido']
-        model_persona = tbl_persona(primer_nombre=primer_nombre, primer_apellido=primer_apellido, fk_usuario=model_user)
-        #model_persona.save()
 
-        return redirect('appProgress:sing_in')
+        validate_myemail = validate(email_address=usuario, check_smtp=True)
+        # print('RESULTADO', validate_myemail, ', correo: ', usuario)
+        if validate_myemail:
+            model_user = User.objects.create_user(subtring_usuario, usuario, contrasenia)
+            model_user.save()
+            send_mail(usuario)
+            model_persona = tbl_persona(primer_nombre=primer_nombre, primer_apellido=primer_apellido, fk_usuario=model_user)
+            model_persona.save()
+            return redirect('appProgress:sing_in')
+        else:
+            return redirect('appProgress:register')
     success_url = reverse_lazy('appProgress:sing_in')
 
 class dasboard(TemplateView):
@@ -77,3 +103,4 @@ def send_mail(mail):
 
     email.attach_alternative(content, 'text/html')
     email.send()
+
